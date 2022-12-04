@@ -175,7 +175,7 @@ defmodule ColorMaps.Wesanderson do
   def palette_types(), do: [@maptype]
 
   @doc "Returns The defined palette named by name parameter"
-  @spec palette(atom()) :: Palette.t()
+  # @spec palette(atom()) :: Palette.t()
   def palette(palette_name) do
     Map.get(@palettes, palette_name)
   end

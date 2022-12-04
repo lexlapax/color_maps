@@ -30,11 +30,12 @@ defmodule ColorMaps do
   # end
 
 
-  @spec colormaps :: %{Module => String.t()}
+  @spec colormaps :: %{module() => String.t()}
   def colormaps() do
     @colormaps
   end
 
+  @spec get_colormap(String.t()) :: {:err, String.t()} | {:ok, module()}
   def get_colormap(cmap) when is_bitstring(cmap) do
     mod = Module.concat([__MODULE__, cmap])
     if Map.has_key?(@colormaps, mod) do

@@ -6,7 +6,7 @@ defmodule Palette do
   @enforce_keys [:name, :map_type, :colors]
   defstruct [name: "", map_type: :sequential, number: 0, colors: [], url: ""]
 
-  defimpl PaletteProtocol, for: Palette do
+  defimpl Palettable, for: Palette do
     @spec name(Palette.t()) :: String.t()
     def name(palette) do
       palette.name
@@ -40,7 +40,7 @@ defmodule Palette do
   defimpl String.Chars, for: Palette do
     @spec to_string(Palette.t()) :: String.t()
     def to_string(palette) do
-      "<Palette>: name: #{palette.name}, num_colors: #{PaletteProtocol.num_colors(palette)}, type: #{palette.map_type}, url: #{palette.url}"
+      "<Palette>: name: #{palette.name}, num_colors: #{Palettable.num_colors(palette)}, type: #{palette.map_type}, url: #{palette.url}"
     end
   end
 

@@ -1,4 +1,4 @@
-defprotocol PaletteProtocol do
+defprotocol Palettable do
   @doc "Returns the name of the palette."
   @spec name(t) :: String.t()|atom()
   def name(t)

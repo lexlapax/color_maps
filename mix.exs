@@ -21,6 +21,9 @@ defmodule ColorMaps.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:stb_image, "~> 0.5.2", optional: true},
+      {:kino, "~> 0.7", optional: true},
+      {:ex_doc, "~> 0.23", only: :docs, runtime: false}
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
     ]

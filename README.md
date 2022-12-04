@@ -5,10 +5,15 @@ An attempt at centralizing color maps in elixir , mostly for my use, in order no
 This is certainly not idiomatic. It is part of my attempt to learn elixir, OTP, Nx etc.
 
 Take a look at the following:
+  1. https://colorbrewer2.org 
   1. https://matplotlib.org/stable/tutorials/colors/index.html 
   1. http://www.kennethmoreland.com/color-advice/ 
+  1. https://github.com/jiffyclub/palettable 
+  1. http://www.fabiocrameri.ch/colourmaps.php
 
 A lot of this is taken from matplotlib colormaps implementation.
+
+Currently just contains datasets in hashmaps in the form of RGB or hex values.
 
 **TODO: Add description**
 

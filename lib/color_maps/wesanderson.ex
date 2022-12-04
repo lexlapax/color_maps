@@ -5,8 +5,9 @@ defmodule ColorMaps.Wesanderson do
   """
 
   @behaviour ColormapBehaviour
-  @maptype :sequential
   @url "http://wesandersonpalettes.tumblr.com/"
+
+  @maptype :sequential
 
   # Tumblr palettes in chronological order
   @palettes  %{

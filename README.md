@@ -4,6 +4,8 @@ An attempt at centralizing color maps in elixir , mostly for my use, in order no
 *NOTE* 
 This is certainly not idiomatic. It is part of my attempt to learn elixir, OTP, Nx etc.
 
+Now experimenting with protocols and behaviours
+
 Take a look at the following:
   1. https://colorbrewer2.org 
   1. https://matplotlib.org/stable/tutorials/colors/index.html 

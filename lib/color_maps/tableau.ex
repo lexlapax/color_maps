@@ -7,9 +7,9 @@ defmodule ColorMaps.Tableau do
   """
 
   @behaviour ColormapBehaviour
-  @maptype :qualitative
   @url "http://www.tableausoftware.com"
 
+  @maptype :qualitative
 
   # Tableau 10
   tableau_10_data = [[ 31, 119, 180],

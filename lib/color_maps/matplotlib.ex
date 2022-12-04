@@ -22,6 +22,9 @@ defmodule ColorMaps.Matplotlib do
   """
 
   @behaviour ColormapBehaviour
+  @url "https://bids.github.io/colormap"
+
+  @maptype :sequential
 
   m_MAGMA_DATA = [[0, 0, 4],
     [1, 0, 5],
@@ -1051,8 +1054,6 @@ defmodule ColorMaps.Matplotlib do
     [251, 231, 35],
     [253, 231, 37]]
 
-  @maptype :sequential
-  @url "https://bids.github.io/colormap"
   @palettes %{
     :magma => %Palette{name: "Magma",
       map_type: @maptype,

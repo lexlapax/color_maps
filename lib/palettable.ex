@@ -23,4 +23,8 @@ defprotocol Palettable do
   @spec float_colors(t) :: list(list(float()))
   def float_colors(t)
 
+  # if Code.ensure_loaded?(Kino.Image) do
+  #   @spec show_discrete_image(t, integer(), integer()) :: Kino.Image.t()
+  #   def show_discrete_image(t, width, height)
+  # end
 end

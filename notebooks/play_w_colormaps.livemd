@@ -1,0 +1,154 @@
+# develop color maps
+
+```elixir
+my_app_root = Path.join(__DIR__, "..")
+
+Mix.install([
+  {:color_maps, path: my_app_root, env: :dev},
+  {:kino, "~> 0.8.0"},
+  {:nx, "~> 0.4.1"},
+  {:exla, "~> 0.4.1"},
+  {:image, "~> 0.15.0"}
+])
+```
+
+## Section
+
+```elixir
+import IEx.Helpers
+Nx.Defn.global_default_options(compiler: EXLA)
+```
+
+```elixir
+ColorMaps.Wesanderson.palette_names()
+```
+
+```elixir
+pal = ColorMaps.Wesanderson.palette(:aquatic1)
+Kino.inspect(pal)
+```
+
+```elixir
+tn = Nx.tensor(Palette.colors(pal))
+Nx.transpose(tn)
+tn
+```
+
+```elixir
+Palette.show_discrete_image(pal)
+```
+
+```elixir
+Palette.show_discrete_image(ColorMaps.Wesanderson.palette(:moonrise6))
+```
+
+```elixir
+Palette.show_discrete_image(ColorMaps.Wesanderson.palette(:isleofdogs2))
+```
+
+```elixir
+ColorMaps.Matplotlib.palette_names()
+```
+
+```elixir
+pal1 = ColorMaps.Matplotlib.palette(:viridis)
+length(Palette.colors(pal1))
+Palette.show_discrete_image(pal1)
+```
+
+```elixir
+Palette.show_discrete_image(ColorMaps.Matplotlib.palette(:inferno))
+```
+
+```elixir
+Palette.show_discrete_image(ColorMaps.Matplotlib.palette(:magma))
+```
+
+```elixir
+Palette.show_discrete_image(ColorMaps.Matplotlib.palette(:plasma))
+```
+
+```elixir
+Palette.show_discrete_image(ColorMaps.Tableau.palette(:green_orange_12))
+```
+
+```elixir
+# stb_img = StbImage.read_file!(Path.join(__DIR__, "wesanderson_aquatic1.png"))
+vix_img = Image.open!(Path.join(__DIR__, "wesanderson_aquatic1.png"), access: :random)
+Palette.vix_kino_show(vix_img)
+```
+
+```elixir
+{_, ex_tn} = Image.to_nx(vix_img)
+```
+
+```elixir
+Nx.slice(ex_tn, [0, 0, 0], [1, 64, 4])
+```
+
+```elixir
+Kino.Markdown
+```
+
+```elixir
+defmodule ImgConv do
+  def show_as_blocks(palette) do
+    colors = Palettable.colors(palette)
+    num_colors = length(colors)
+    rect_h = 64
+    full_w = 512
+    rect_w = div(full_w, num_colors)
+    full_w = num_colors * rect_w
+
+    img_blocks =
+      Enum.reduce(colors, [], fn [r, g, b], acc ->
+        img = Image.new!(rect_w, rect_h, color: [r, g, b])
+        [img | acc]
+      end)
+      |> Enum.reverse()
+
+    img = Image.new!(full_w, rect_h, color: :white)
+
+    complist =
+      Enum.reduce(img_blocks, [], fn img_block, acc ->
+        # comp_tuple = {img_block, [dx: 1, y_baseline: :top, dy: 0]}
+        comp_tuple =
+          case acc do
+            [] ->
+              {img_block, [x: 0, y: 0]}
+
+            _ ->
+              [{_, last_pos} | _] = acc
+              {img_block, [x: last_pos[:x] + rect_w, y: 0]}
+          end
+
+        # [{img_block, dx: 1, y_baseline: :top, dy: 0} | acc ]
+        [comp_tuple | acc]
+      end)
+
+    img = Image.compose!(img, complist, blend_mode: :clear, x: :left, y: :top)
+    vix_kino_show(img)
+  end
+
+  def show_as_kino_blocks(palette) do
+    colors = Palettable.colors(palette)
+    num_colors = length(colors)
+    rect_h = 64
+    full_w = 512
+    rect_w = div(full_w, num_colors)
+
+    colors =
+      Enum.reduce(colors, [], fn [r, g, b], acc ->
+        img = Image.new!(rect_w, rect_h, color: [r, g, b])
+        [vix_kino_show(img) | acc]
+      end)
+
+    Kino.Layout.grid(colors, columns: num_colors, gap: 1, boxed: true)
+  end
+
+  def vix_kino_show(vix_img) do
+    vix_img_bin = Image.write!(vix_img, :memory, suffix: ".png")
+    Kino.Image.new(vix_img_bin, "image/png")
+  end
+end
+```

@@ -48,7 +48,8 @@ defmodule Palette do
     defimpl Kino.Render do
       @spec to_livebook(Palette.t()) :: Kino.Output.t()
       def to_livebook(palette) do
-        {"Image", Palette.show_discrete_image(palette)}
+        Kino.Inspect.new({"Image", Palette.show_discrete_image(palette)})
+        |> Kino.Render.to_livebook()
       end
 
     end

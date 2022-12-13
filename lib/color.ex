@@ -9,8 +9,8 @@ defmodule Color do
   """
 
   # taken from https://github.com/alvinlindstam/css_colors/blob/master/lib/CssColors/rgb.ex
-  @type t :: %__MODULE__{red: integer(), green: integer(), blue: integer(), alpha: float(), name: String.t() }
-  defstruct [red: 0, green: 0, blue: 0, alpha: 1.0, name: ""] # r, g , b values 0 - 255, alpha values 0.0 to 1.0, name defaults to ""
+  @type t :: %__MODULE__{red: number(), green: number(), blue: number(), alpha: number(), name: String.t() }
+  defstruct [red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0, name: ""] # r, g , b values 0 - 255, alpha values 0.0 to 1.0, name defaults to ""
 
   @spec rgb(
           number | {number, :percent},
@@ -90,7 +90,7 @@ defmodule Color do
   # lightness:  0.0, # 0-1 (percent)
   # alpha:      1.0  # 0-1 (percent)
   # name: string
-  @spec hsl(float(), float(), float(), float(), String.t()) :: Colors.Color.t()
+  @spec hsl(number(), number(), number(), number(), String.t()) :: Colors.Color.t()
   def hsl(hue, saturation, lightness, alpha, name \\ "") do
     h = cast(hue, :hue)
     s = cast(saturation, :saturation)
@@ -148,7 +148,7 @@ defmodule Color do
   defp to_hex(value) when is_integer(value), do:
     Integer.to_string(value, 16)
 
-  @spec named_color!(String.t()) :: Color.t()
+  @spec named_color!(atom|String.t()) :: Color.t()
   def named_color!(name) do
     {:ok, color} = named_color(name)
     color
@@ -157,6 +157,7 @@ defmodule Color do
   @spec named_color(atom|String.t()) :: {:error, :no_match | Color.t()} | {:ok, Color.t()}
   def named_color(name), do: Color.Parser.parse(name)
 
+  @spec named_colors :: %{optional(String.t()) => String.t()}
   def named_colors do
     Color.NamedColors.named_colors()
   end

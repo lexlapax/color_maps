@@ -27,6 +27,7 @@ defmodule ColorMaps.MixProject do
       {:ex_doc, "~> 0.23", only: :docs, runtime: false},
       {:nx, "~> 0.4.1", optional: true},
       {:exla, "~> 0.4.1", optional: true},
+      {:jason, "~> 1.4", optional: true },
 
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}

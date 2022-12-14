@@ -29,6 +29,18 @@ pal
 ```
 
 ```elixir
+ColorMaps.Cyclic.palette_names()
+```
+
+```elixir
+Palette.show_discrete_image(ColorMaps.Cyclic.palette(:turbo))
+```
+
+```elixir
+Palette.show_discrete_image(ColorMaps.Cyclic.palette(:twilight_shifted))
+```
+
+```elixir
 tn = Nx.tensor(Palette.colors(pal))
 Nx.transpose(tn)
 tn

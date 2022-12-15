@@ -106,6 +106,14 @@ Palette.show_discrete_image(ColorMaps.Tableau.palette(:green_orange_12))
 ```
 
 ```elixir
+ColorMaps.Cmocean.palette_names()
+```
+
+```elixir
+Palette.show_discrete_image(ColorMaps.Cmocean.palette(:turbid))
+```
+
+```elixir
 # stb_img = StbImage.read_file!(Path.join(__DIR__, "wesanderson_aquatic1.png"))
 vix_img = Image.open!(Path.join(__DIR__, "wesanderson_aquatic1.png"), access: :random)
 Palette.vix_kino_show(vix_img)

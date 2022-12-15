@@ -1,3 +1,0 @@
-import palettable as pal
-
-

@@ -54,7 +54,7 @@ Palette.show_discrete_image(ColorMaps.Cartocolors.palette(:vivid))
 ```
 
 ```elixir
-Palette.show_discrete_image(ColorMaps.Cyclic.palette(:turbo))
+Palette.show_discrete_image(ColorMaps.Cyclic.palette(:twilight))
 ```
 
 ```elixir
@@ -121,67 +121,4 @@ Nx.slice(ex_tn, [0, 0, 0], [1, 64, 4])
 
 ```elixir
 Kino.Markdown
-```
-
-```elixir
-defmodule ImgConv do
-  def show_as_blocks(palette) do
-    colors = Palettable.colors(palette)
-    num_colors = length(colors)
-    rect_h = 64
-    full_w = 512
-    rect_w = div(full_w, num_colors)
-    full_w = num_colors * rect_w
-
-    img_blocks =
-      Enum.reduce(colors, [], fn [r, g, b], acc ->
-        img = Image.new!(rect_w, rect_h, color: [r, g, b])
-        [img | acc]
-      end)
-      |> Enum.reverse()
-
-    img = Image.new!(full_w, rect_h, color: :white)
-
-    complist =
-      Enum.reduce(img_blocks, [], fn img_block, acc ->
-        # comp_tuple = {img_block, [dx: 1, y_baseline: :top, dy: 0]}
-        comp_tuple =
-          case acc do
-            [] ->
-              {img_block, [x: 0, y: 0]}
-
-            _ ->
-              [{_, last_pos} | _] = acc
-              {img_block, [x: last_pos[:x] + rect_w, y: 0]}
-          end
-
-        # [{img_block, dx: 1, y_baseline: :top, dy: 0} | acc ]
-        [comp_tuple | acc]
-      end)
-
-    img = Image.compose!(img, complist, blend_mode: :clear, x: :left, y: :top)
-    vix_kino_show(img)
-  end
-
-  def show_as_kino_blocks(palette) do
-    colors = Palettable.colors(palette)
-    num_colors = length(colors)
-    rect_h = 64
-    full_w = 512
-    rect_w = div(full_w, num_colors)
-
-    colors =
-      Enum.reduce(colors, [], fn [r, g, b], acc ->
-        img = Image.new!(rect_w, rect_h, color: [r, g, b])
-        [vix_kino_show(img) | acc]
-      end)
-
-    Kino.Layout.grid(colors, columns: num_colors, gap: 1, boxed: true)
-  end
-
-  def vix_kino_show(vix_img) do
-    vix_img_bin = Image.write!(vix_img, :memory, suffix: ".png")
-    Kino.Image.new(vix_img_bin, "image/png")
-  end
-end
 ```

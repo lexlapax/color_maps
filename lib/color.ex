@@ -52,6 +52,14 @@ defmodule Color do
     "#" <> to_hex(r) <> to_hex(g) <> to_hex(b)
   end
 
+  def to_rgblist(%__MODULE__{red: r, green: g, blue: b, alpha: _, name: _}) do
+    [r, g, b]
+  end
+
+  def to_rgbalist(%__MODULE__{red: r, green: g, blue: b, alpha: a, name: _}) do
+    [r, g, b, a]
+  end
+
   @spec to_hsl(Colors.Color.t()) :: {float, float, float, float, String.t()}
   def to_hsl(%__MODULE__{red: r, green: g, blue: b, alpha: a, name: n}) do
     r = r/255
@@ -139,13 +147,13 @@ defmodule Color do
   end
 
 
-  defp to_hex(value) when is_float(value), do:
+  def to_hex(value) when is_float(value), do:
     to_hex(round(value))
 
-  defp to_hex(value) when value < 16, do:
+  def to_hex(value) when value < 16, do:
     "0" <> Integer.to_string(value, 16)
 
-  defp to_hex(value) when is_integer(value), do:
+  def to_hex(value) when is_integer(value), do:
     Integer.to_string(value, 16)
 
   @spec named_color!(atom|String.t()) :: Color.t()

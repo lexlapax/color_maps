@@ -8,7 +8,8 @@ Mix.install([
   {:kino, "~> 0.8.0"},
   {:nx, "~> 0.4.1"},
   {:exla, "~> 0.4.1"},
-  {:image, "~> 0.15.0"}
+  {:image, "~> 0.15.0"},
+  {:jason, "~> 1.4"}
 ])
 ```
 
@@ -34,6 +35,18 @@ ColorMaps.Cyclic.palette_names()
 
 ```elixir
 ColorMaps.Cartocolors.palette_names()
+```
+
+```elixir
+ColorMaps.Colorbrewer.palette_names()
+```
+
+```elixir
+Palette.show_discrete_image(ColorMaps.Colorbrewer.palette(:blues9))
+```
+
+```elixir
+Palette.float_colors(ColorMaps.Colorbrewer.palette(:blues9))
 ```
 
 ```elixir

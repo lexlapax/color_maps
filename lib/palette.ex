@@ -28,12 +28,12 @@ defmodule Palette do
 
     @spec hex_colors(Palette.t()) :: list(String.t())
     def hex_colors(palette) do
-      Enum.map(palette.colors, fn color -> Utils.to_hex(color) end)
+      Enum.map(palette.colors, fn [r,g,b] -> "##{Color.to_hex(r)}#{Color.to_hex(g)}#{Color.to_hex(b)}" end)
     end
 
     @spec float_colors(Palette.t()) :: list(list(float()))
     def float_colors(palette) do
-      Enum.map(palette.colors, fn color -> Utils.rgb_tofloat(color) end)
+      Enum.map(palette.colors, fn [r,g,b] -> [r/255,g/255,b/255] end)
     end
   #end
 
